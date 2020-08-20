@@ -1,0 +1,564 @@
+1)	What do you mean by Data Structure?
+
+ANS:-- A data structure is a specialize way for organizing, processing, retrieving and storing data. While there are several basic and advanced structure types, any data structure is designed to arrange data to suit a specific purpose so that it can be accessed and worked with in appropriate ways.
+In computer programming, a data structure may be selected or designed to store data for the purpose of working on it with various algorithms. Each data structure contains information about the data values, relationships between the data and functions that can be applied to the data.
+
+2)	What are some of applications of Data Structures?
+
+Based upon the requirement and specification following data-structure will be used.
+1.	Arrays : Implementation of other data structures, Execution of matrices and vectors, Dynamic memory allocation, Pointer container, Control tables.
+2.	Stack: Evaluation of expressions, Backtracking, Runtime memory management, Arrangement of books in a library.
+3.	Queue: Here, the data sent need not be received at the same rate at which it was sent. A certain system resource is to be shared between different processes.
+4.	Linked-List: Representation of sparse matrices, Non-contiguous data storage, Implementation of non-binary tree or other data structures, Dynamic memory management, Equalizing parenthesis, Symbol tables.
+5.	Set: Mapping of data, Common data storage.
+6.	Graph: Computer networking, Problem solutions involving 'Depth-First' search or 'Breadth-First' search algorithms, Representation of matrices, Study of molecular interactions in Chemistry.
+7.	Tree: Representation of data lists, Quickly accessible data storage, Representation of hierarchal data, Routing of algorithms.
+8.	Hash-table: Unique data representation, Implementation of caches, Array association, Locating entries in a table, Representation of objects, Database indexing.
+9.	File: Implementation of computer programs, Data comparison, Storage of data having varying data types.
+
+
+
+3)	What are advantages of Linked-list over array?
+Arrays are sequential while Linked Lists are not, apart from this major advantage is linked list are dynamic, so if you want to add new elements more than 10 (declared in array), then Linked List could do the thing for you. Also due to this property, internally in databases, tuples are stored in the form of a linked list (nodes in the B- Tree/B+ Tree) in the RAM, and in the file it has to be stored sequentially to retrieve data in the tree - in the file it is stored sequentially because now you know the fixed size of the data. So this is a good example of how data structures which seem to be contradictory could complement each other so nicely!
+
+4)	Write syntax for singly linked-list in C?
+
+           struct node   
+{  
+    		int data;  
+   		 struct node *next;   
+};  
+struct node *head;  
+
+5)	What is the use of doubly linked-list when compared to that of a singly linked-list?
+Doubly linked list has more efficient iteration, especially if you need to ever iterate in reverse (which is horribly inefficient with a single linked list), and more efficient deletion of specific nodes.
+Can be iterated in forward as well as reverse direction. In case of needing to delete previous node, there is no need to traverse from head node, as the node to be deleted can be found from ‘.previous’ pointer.
+
+6)	What is difference between array and stack?
+Stacks:
+1.Stacks are based on the LIFO principle, i.e., the element inserted at the last, is the first element to come out of the list.
+2.Stack has a dynamic size
+3.Stack can contain elements of different data type.
+4.We can do only linear search
+Array:
+1.In the array the elements belong to indexes, i.e., if you want to get into the fourth element you have to write the variable name with its index .
+2.Array has a fixed size.
+3.Array contains elements of same data type.
+4.We can do both linear and Binary search
+
+7)	What are the minimum number of Queues required needed to implement the priority queue?
+Priority queues r applied using 2-D array where it has two rows one for element and second for priority ,so minimum numbers of queues are needed to implement are two.
+
+8)	What are different types of traversal techniques in a tree?
+1.Inorder
+2.Preorder
+3.Postorder
+4.LevelOrder
+
+9)	Why it is said that searching a node in a binary search tree is efficient than that of a simple binary tree?
+In BST nodes are arranged in a fashion that elements less than parent node are sent to left of parent and elements with greater are on right so, while searching we can reduce time and searching efforts in BST than simple binary tree.
+
+10)	What are the applications of Graph DS?
+
+1.	Facebook: Each user is represented as a vertex and two people are friends when there is an edge between two vertices. Similarly friend suggestion also uses graph theory concept.
+2.	Google Maps: Various locations are represented as vertices and the roads are represented as edges and graph theory is used to find shortest path between two nodes.
+3.	Recommendations on e-commerce websites: The “Recommendations for you” section on various e-commerce websites uses graph theory to recommend items of similar type to user’s choice.
+4.	Graph theory is also used to study molecules in chemistry and physics.
+
+11)	Can we apply Binary Search algorithm to a sorted linked-list
+Yes it can be possible in java language through inbuilt data-structure linked-list.
+
+12)	When can you tell that memory leak will occur?
+A memory leak is a type of resource leak that occurs when a computer program incorrectly manages memory allocations in a way that memory which is no longer needed is not released. A memory leak may also happen when an object is stored in memory but cannot be accessed by the running code.
+Memory leak occurs when programmers create a memory in heap and forget to delete it.
+Memory leaks are particularly serious issues for programs like daemons and servers which by definition never terminate.
+
+13)	How will you check whether the given binary tree is a BST or not?
+If nodes left to parent should be less than nodes of right.
+Another way is it’s in-order traversal should result in ascending order.
+
+14)	 What data structure is ideal to perform recursion operation and why?
+Recursion makes use of the system stack for storing the return addresses of the function calls.
+Every recursive function has its equivalent iterative (non-recursive) function. Even when such equivalent iterative procedures are written explicit, stack is to be used.
+15)	What are some of the most important applications of Stack?
+
+1.	Stacks can be used for expression evaluation.
+2.	Stacks can be used for Conversion from one form of expression to another.
+3.	Stack data structures are used in backtracking problems.
+4.	Stacks can be used to check parenthesis matching in an expression.
+16)	Prefix to postfix conversion?
+#include <iostream>
+#include <stack>
+using namespace std;
+bool isOperator(char x) {
+   switch (x) {
+      case '+':
+      case '-':
+      case '/':
+      case '*':
+      return true;
+   }
+   return false;
+}
+string convertToPostfix(string prefix) {
+   stack<string> expression;
+   int length = prefix.size();
+   for (int i = length - 1; i >= 0; i--) {
+      if (isOperator(prefix[i])) {
+         string op1 = expression.top();
+         expression.pop();
+         string op2 = expression.top();
+         expression.pop();
+         string temp = op1 + op2 + prefix[i];
+         expression.push(temp);
+      }
+      else
+         expression.push(string(1, prefix[i]));
+   }
+   return expression.top();
+}
+int main() {
+   string prefix = "*-AB/+CD*XY";
+   cout<<"Prefix expression : "<<prefix<<endl;
+   cout<<"Postfix expression : "<<convertToPostfix(prefix);
+   return 0;
+}
+17)	Sorting a stack using temporary stack?
+#include <bits/stdc++.h>
+using namespace std;
+stack<int> sort_stack(stack<int> &stack1)
+{
+    stack<int> stack2;
+    while(!stack1.empty())
+    {
+        int temp = stack1.top();
+        stack1.pop();
+        while(!stack2.empty() && stack2.top() > temp)
+        {
+            stack1.push(stack2.top());
+            stack2.pop();
+        }
+        stack2.push(temp);
+    }
+    return stack2;
+}
+int main()
+{
+    stack<int> stack1;
+    int n;
+    cout << "\nEnter the number of elements to be pushed to the stack : ";
+    cin >> n;
+    cout << "\nEnter the stack elements : ";
+    for(int i = 0; i < n; i++)
+    {
+        int data;
+        cin >> data;
+        stack1.push(data);
+    }
+    stack<int> stack2 = sort_stack(stack1);
+    cout <<"\nSorted Stack : ";
+    while(!stack2.empty())
+    {
+        cout << stack2.top()<< " ";
+        stack2.pop();
+    }
+    cout << endl;
+    return 0;
+}
+18)	Program to reverse a queue?
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+ 
+public class Queue_reverse {
+     
+    static Queue<Integer> queue;
+ 
+    static void Print()
+    {
+        while (!queue.isEmpty()) {
+            System.out.print( queue.peek() + ", ");
+            queue.remove();
+        }
+    }
+ 
+    // Function to reverse the queue
+    static void reversequeue()
+    {
+        Stack<Integer> stack = new Stack<>();
+        while (!queue.isEmpty()) {
+            stack.add(queue.peek());
+            queue.remove();
+        }
+        while (!stack.isEmpty()) {
+            queue.add(stack.peek());
+            stack.pop();
+        }
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        queue = new LinkedList<Integer>();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+        queue.add(50);
+        queue.add(60);
+        queue.add(70);
+        queue.add(80);
+        queue.add(90);
+        queue.add(100);
+ 
+        reversequeue();
+        Print();
+    }
+}
+19)	Program to reverse first k elements of queue?
+import java.util.LinkedList; 
+import java.util.Queue; 
+import java.util.Stack; 
+  
+public class Reverse_k_element_queue { 
+  
+    static Queue<Integer> queue; 
+  
+    static void reverseQueueFirstKElements(int k) 
+    { 
+        if (queue.isEmpty() == true
+            || k > queue.size()) 
+            return; 
+        if (k <= 0) 
+            return; 
+  
+        Stack<Integer> stack = new Stack<Integer>(); 
+  
+        for (int i = 0; i < k; i++) { 
+            stack.push(queue.peek()); 
+            queue.remove(); 
+        } 
+  
+        while (!stack.empty()) { 
+            queue.add(stack.peek()); 
+            stack.pop(); 
+        } 
+  
+        for (int i = 0; i < queue.size() - k; i++) { 
+            queue.add(queue.peek()); 
+            queue.remove(); 
+        } 
+    } 
+ 
+    static void Print() 
+    { 
+        while (!queue.isEmpty()) { 
+            System.out.print(queue.peek() + " "); 
+            queue.remove(); 
+        } 
+    } 
+  
+    public static void main(String args[]) 
+    { 
+        queue = new LinkedList<Integer>(); 
+        queue.add(10); 
+        queue.add(20); 
+        queue.add(30); 
+        queue.add(40); 
+        queue.add(50); 
+        queue.add(60); 
+        queue.add(70); 
+        queue.add(80); 
+        queue.add(90); 
+        queue.add(100); 
+  
+        int k = 5; 
+        reverseQueueFirstKElements(k); 
+        Print(); 
+    } 
+} 
+20)	Program to return the nth node from the end in a linkedlist?
+class LinkedList { 
+    Node head; 
+  
+    class Node { 
+        int data; 
+        Node next; 
+        Node(int d) 
+        { 
+            data = d; 
+            next = null; 
+        } 
+    } 
+  
+    void printNthFromLast(int n) 
+    { 
+        int len = 0; 
+        Node temp = head; 
+  
+        while (temp != null) { 
+            temp = temp.next; 
+            len++; 
+        } 
+  
+        if (len < n) 
+            return; 
+  
+        temp = head; 
+  
+        for (int i = 1; i < len - n + 1; i++) 
+            temp = temp.next; 
+  
+        System.out.println(temp.data); 
+    } 
+  
+    public void push(int new_data) 
+    { 
+        Node new_node = new Node(new_data); 
+  
+        new_node.next = head; 
+  
+        head = new_node; 
+    } 
+  
+    public static void main(String[] args) 
+    { 
+        LinkedList llist = new LinkedList(); 
+        llist.push(20); 
+        llist.push(4); 
+        llist.push(15); 
+        llist.push(35); 
+  
+        llist.printNthFromLast(4); 
+    } 
+}
+21)	Reverse a linkedlist?
+class LinkedList { 
+  
+    static Node head; 
+  
+    static class Node { 
+  
+        int data; 
+        Node next; 
+  
+        Node(int d) 
+        { 
+            data = d; 
+            next = null; 
+        } 
+    } 
+  
+    Node reverse(Node node) 
+    { 
+        Node prev = null; 
+        Node current = node; 
+        Node next = null; 
+        while (current != null) { 
+            next = current.next; 
+            current.next = prev; 
+            prev = current; 
+            current = next; 
+        } 
+        node = prev; 
+        return node; 
+    } 
+  
+    void printList(Node node) 
+    { 
+        while (node != null) { 
+            System.out.print(node.data + " "); 
+            node = node.next; 
+        } 
+    } 
+  
+    public static void main(String[] args) 
+    { 
+        LinkedList list = new LinkedList(); 
+        list.head = new Node(85); 
+        list.head.next = new Node(15); 
+        list.head.next.next = new Node(4); 
+        list.head.next.next.next = new Node(20); 
+  
+        System.out.println("Given Linked list"); 
+        list.printList(head); 
+        head = list.reverse(head); 
+        System.out.println(""); 
+        System.out.println("Reversed linked list "); 
+        list.printList(head); 
+    } 
+}
+22)	Replace each element of the array by its rank in  the array?
+import java.util.*; 
+  
+class GFG { 
+  
+    static void changeArr(int[] input) 
+    { 
+        int newArray[] 
+            = Arrays 
+                  .copyOfRange(input, 
+                               0, 
+                               input.length); 
+  
+        Arrays.sort(newArray); 
+        int i; 
+       
+        Map<Integer, Integer> ranks 
+            = new HashMap<>(); 
+  
+        int rank = 1; 
+  
+        for (int index = 0; 
+             index < newArray.length; 
+             index++) { 
+  
+            int element = newArray[index]; 
+  
+            if (ranks.get(element) == null) { 
+  
+                ranks.put(element, rank); 
+                rank++; 
+            } 
+        } 
+  
+        for (int index = 0; 
+             index < input.length; 
+             index++) { 
+  
+            int element = input[index]; 
+            input[index] 
+                = ranks.get(input[index]); 
+         
+        } 
+    } 
+  
+    public static void main(String[] args) 
+    { 
+       
+        int[] arr = { 100, 2, 70, 2 }; 
+  
+        changeArr(arr); 
+  
+        System 
+            .out 
+            .println(Arrays 
+                         .toString(arr)); 
+    } 
+}
+23)	Check if given graph is a tree or not?
+import java.io.*; 
+import java.util.*; 
+  
+class Graph 
+{ 
+    private int V;  
+    private LinkedList<Integer> adj[]; 
+  
+    Graph(int v) 
+    { 
+        V = v; 
+        adj = new LinkedList[v]; 
+        for (int i=0; i<v; ++i) 
+            adj[i] = new LinkedList(); 
+    } 
+  
+    void addEdge(int v,int w) 
+    { 
+        adj[v].add(w); 
+        adj[w].add(v); 
+    } 
+  
+    Boolean isCyclicUtil(int v, Boolean visited[], int parent) 
+    { 
+    
+        visited[v] = true; 
+        Integer i; 
+  
+        Iterator<Integer> it = adj[v].iterator(); 
+        while (it.hasNext()) 
+        { 
+            i = it.next(); 
+  
+            if (!visited[i]) 
+            { 
+                if (isCyclicUtil(i, visited, v)) 
+                    return true; 
+            } 
+  
+            else if (i != parent) 
+               return true; 
+        } 
+        return false; 
+    } 
+  
+    Boolean isTree() 
+    { 
+        Boolean visited[] = new Boolean[V]; 
+        for (int i = 0; i < V; i++) 
+            visited[i] = false; 
+  
+        if (isCyclicUtil(0, visited, -1)) 
+            return false; 
+  
+        for (int u = 0; u < V; u++) 
+            if (!visited[u]) 
+                return false; 
+  
+        return true; 
+    } 
+  
+    public static void main(String args[]) 
+    { 
+        Graph g1 = new Graph(5); 
+        g1.addEdge(1, 0); 
+        g1.addEdge(0, 2); 
+        g1.addEdge(0, 3); 
+        g1.addEdge(3, 4); 
+        if (g1.isTree()) 
+            System.out.println("Graph is Tree"); 
+        else
+            System.out.println("Graph is not Tree"); 
+  
+        Graph g2 = new Graph(5); 
+        g2.addEdge(1, 0); 
+        g2.addEdge(0, 2); 
+        g2.addEdge(2, 1); 
+        g2.addEdge(0, 3); 
+        g2.addEdge(3, 4); 
+  
+        if (g2.isTree()) 
+            System.out.println("Graph is Tree"); 
+        else
+            System.out.println("Graph is not Tree"); 
+  
+    } 
+} 
+24)	Find out the kth smallest element in an unsorted array?
+import java.util.Arrays; 
+import java.util.Collections; 
+  
+class GFG { 
+    public static int kthSmallest(Integer[] arr, 
+                                  int k) 
+    { 
+        // Sort the given array 
+        Arrays.sort(arr); 
+  
+        // Return k'th element in 
+        // the sorted array 
+        return arr[k - 1]; 
+    } 
+  
+    // driver program 
+    public static void main(String[] args) 
+    { 
+        Integer arr[] = new Integer[] { 12, 3, 5, 7, 19 }; 
+        int k = 2; 
+        System.out.print("K'th smallest element is " + kthSmallest(arr, k)); 
+    } 
+} 
+25)	How to find shortest path between two vertices?
+Using Dijkstra’s Shortest path algorithm for a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+
+
